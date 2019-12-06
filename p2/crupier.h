@@ -6,8 +6,8 @@ class Crupier : public Persona{
     private:
     std::string codigo_;
     public:
-    Crupier(const std::string & dni,const std::string & codigo, const std::string & nombre="", const std::string & apellidos ="", const std::string & direccion="", \
-    const std::string &localidad="",const std::string & provincia="",const std::string & pais="", int edad=0);
+    Crupier(const std::string & dni,const std::string & codigo, const std::string & nombre="", const std::string & apellidos ="", int edad=0, \
+    const std::string & direccion="", const std::string &localidad="",const std::string & provincia="",const std::string & pais="");
     inline std::string getCodigo(){return codigo_;}
     inline void setCodigo(const std::string & newCodigo){codigo_ = newCodigo;}
 };
