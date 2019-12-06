@@ -28,7 +28,7 @@ CXXFLAGS += -g -Wall -Wextra -pthread -std=gnu++11
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = persona_unittest crupier_unittest 
+TESTS = persona_unittest crupier_unittest jugador_unittest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
