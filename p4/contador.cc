@@ -28,32 +28,36 @@ void Contador::setValor(int newValor){
 
 
 Contador Contador::operator=(int val){
-		//values.push_back(this->value);
+		values_.push_back(this->valor_);
 		setValor(val);
 		return *this;
-	}
+}
 
 int Contador::operator=(const Contador &obj){
-	//values.push_back(this->value);
+    values_.push_back(this->valor_);
 	*this=obj.valor_;
 	return obj.valor_;
 }
 
 Contador Contador::operator++(void){
+    values_.push_back(this->valor_);
     setValor( valor_ + 1 );
     return *this;
 }
 Contador Contador::operator++(int){
+    values_.push_back(this->valor_);
     Contador contadorAux = *this;
     setValor( ( getValor() ) + 1 );
     return contadorAux;
 }
 
 Contador Contador::operator--(void){
+    values_.push_back(this->valor_);
     setValor(valor_ - 1);
     return *this;
 }
 Contador Contador::operator--(int){
+    values_.push_back(this->valor_);
     Contador contadorAux = *this;
     setValor( ( getValor() ) - 1 );
     return contadorAux;
@@ -69,14 +73,27 @@ Contador operator+(int number, Contador & contador){
 }
 
 Contador operator-( Contador & contador, int number){
-    contador.setValor(number - contador.getValor());
-    return contador;
-    }
-Contador operator-(int number, Contador & contador){
-    contador.setValor(number - contador.getValor());
-    return contador;
+    if((contador.get() -number) < contador.min_) contador.valor_ = contador.min_;
+	else contador.valor_ -= number;
+	contador.values_.emplace_back(contador.get());
+	return contador;
 }
 
+
+Contador operator-(int number, Contador &contador) {
+	if((number - contador.get()) < contador.min_) contador.valor_ = contador.min_;
+	else contador.valor_ -= number;
+	contador.values_.emplace_back(contador.get());
+	return contador;
+}
 bool Contador::undo(int numberOperations) {
-    return true;
+
+	if (numberOperations>(int)values_.size() || numberOperations<0){
+        return false;
+    }
+		for (int i = 0; i < numberOperations; ++i){
+			values_.pop_back();
+		}
+		this->valor_=values_.back();
+		return true;
 }
